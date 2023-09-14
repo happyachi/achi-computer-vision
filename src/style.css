@@ -1,0 +1,117 @@
+@charset "UTF-8";
+* {
+  position: relative;
+  font-family: "微軟正黑體";
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #222;
+  color: white;
+}
+
+.navbar {
+  background-color: #8B0A50;
+  width: 100%;
+  padding-left: 8%;
+}
+
+.ana_style {
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #CD6090;
+  display: inline-block;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #CD6090;
+  color: #000;
+}
+button:hover {
+  background-color: #8B0A50;
+  color: #fff;
+}
+
+#thisButton {
+  padding: 15px 40px;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+label {
+  display: inline-block;
+  margin: 5px 10px;
+}
+
+h3 {
+  border-left: 5px solid #8B0A50;
+}
+
+hr {
+  border: 2px solid #CD6090;
+  margin: 20px 0px;
+}
+
+.cols {
+  min-height: 100px;
+  border: 1px solid #CD6090;
+  margin: 8px;
+  padding: 8px;
+}
+
+.api_key {
+  max-width: 300px;
+  display: inline;
+}
+
+.choose_f {
+  padding: 0px;
+  margin: 8px;
+  height: 100px;
+  text-align: center;
+}
+.choose_f:hover {
+  cursor: pointer;
+}
+.choose_f:hover .choose_f_e {
+  background-color: #8B0A50;
+}
+.choose_f:hover .choose_f_c {
+  background-color: #CD1076;
+}
+.choose_f .choose_f_e {
+  background-color: #8B3A62;
+  height: 50px;
+  width: 100%;
+  position: absolute;
+}
+.choose_f .choose_f_e .choose_f_e_w {
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  font-size: 18px;
+  font-weight: 600;
+}
+.choose_f .choose_f_c {
+  background-color: #CD6090;
+  height: 50px;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+}
+.choose_f .choose_f_c .choose_f_c_w {
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+.footer {
+  height: 50px;
+  width: 100%;
+}/*# sourceMappingURL=style.css.map */

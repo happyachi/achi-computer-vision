@@ -1,17 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+  <head>
+    <title>Analyze Compute Vision</title>
+    <meta charset="utf-8" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="functions.js"></script>
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="nav align-items-end">
+        <div class="" style="font-size: 26px; padding-right: 10px">
+          Azure認知服務測試
+        </div>
+        <div class="" style="font-size: 16px">指定使用區域"eastus"</div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row"><br /></div>
+      <!-- 輸入API KEY -->
+      <div class="row" id="row_api_key">
+        <h3>輸入API KEY</h3>
+        <a style="color: #ee1289"
+          >～～～二組API KEY都要輸入並儲存，不然後續會報錯～～～ <br />※API
+          KEY會存在本地端的storage，使用後可以刪除，若不放心，
+          測試完可到Azure更新KEY，舊的KEY會直接失效</a
+        >
+        <div class="col">
+          <label class="api_key">請輸入"認知服務"API KEY：</label>
+          <input type="text" class="api_key" id="vision_key" />
+        </div>
+        <div class="col">
+          <label class="api_key">請輸入"翻譯服務"API KEY：</label>
+          <input type="text" class="api_key" id="translator_key" />
+        </div>
+        <div class="col">
+          <br />
+          <button class="button" id="storage_save">儲存KEY</button>
+          <button class="button" id="storage_remove">清存KEY</button>
+        </div>
+        <br />
+      </div>
+      <hr />
+      <!-- 選擇功能 -->
+      <div class="row" id="row_choose">
+        <h3>選擇功能</h3>
+        <a style="color: #ee1289">以下功能擇一</a>
+        <div
+          class="choose_f col-sm-5 col-md-3 choose_f_clicked"
+          id="f_analyze_img"
+        >
+          <div class="choose_f_e">
+            <div class="choose_f_e_w">Analyze Image</div>
+          </div>
+          <div class="choose_f_c">
+            <div class="choose_f_c_w">分析圖片</div>
+          </div>
+        </div>
+        <div class="choose_f col-sm-5 col-md-3" id="f_describe_img">
+          <div class="choose_f_e">
+            <div class="choose_f_e_w">Describe Image</div>
+          </div>
+          <div class="choose_f_c">
+            <div class="choose_f_c_w">描述圖片</div>
+          </div>
+        </div>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Vanilla JavaScript App</title>
-</head>
+        <div class="choose_f col-sm-5 col-md-3" id="f_OCR">
+          <div class="choose_f_e">
+            <div class="choose_f_e_w">OCR</div>
+          </div>
+          <div class="choose_f_c">
+            <div class="choose_f_c_w">辨識文字</div>
+          </div>
+        </div>
 
-<body>
-  <main>
-    <h1>Vanilla JavaScript App</h1>
-  </main>
-</body>
+        <div class="choose_f col-sm-5 col-md-3" id="f_OCR_credit">
+          <div class="choose_f_e">
+            <div class="choose_f_e_w">OCR Credit Card</div>
+          </div>
+          <div class="choose_f_c">
+            <div class="choose_f_c_w">辨識文字(信用卡)</div>
+          </div>
+        </div>
+        <div class="choose_f col-sm-5 col-md-3" id="f_translator">
+          <div class="choose_f_e">
+            <div class="choose_f_e_w">Translator</div>
+          </div>
+          <div class="choose_f_c">
+            <div class="choose_f_c_w">翻譯</div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <!-- 選擇範圍 -->
+      <div class="row" id="row_parameters">
+        <h3>選擇範圍</h3>
+      </div>
+      <hr />
+      <!-- 選擇圖片 -->
+      <div class="row" id="row_choose_img">
+        <h3>選擇圖片</h3>
+      </div>
+      <!-- 分析按鈕 -->
+      <div class="row" id="row_thisButton">
+        <div class="col">
+          <button class="button" id="thisButton">～開始分析～</button>
+        </div>
+      </div>
+      <hr />
+      <!-- 分析結果 -->
+      <div class="row" id="row_show_analyze_data">
+        <h3>分析結果</h3>
+      </div>
+      <hr />
 
+      <!-- 回傳圖片辨識項目 -->
+      <div class="row" id="row_analyze_img">
+        <h3>回傳圖片辨識項目</h3>
+        <div class="col">
+          <div class="check_tag" id="check_tag">
+            <div></div>
+          </div>
+          <div class="pic" id="check_img">
+            <img id="sourceImage" />
+          </div>
+        </div>
+      </div>
+      <hr />
+
+      <!-- API回傳的原始資料 Response -->
+      <div class="row" id="row_response_data">
+        <h3>API回傳的原始資料 Response</h3>
+        <div class="col" style="margin-top: 20px">
+          <div id="wrapper" style="width: 90%">
+            <div id="jsonOutput" style="width: 100%">
+              <h5>圖片分析Response</h5>
+              <textarea
+                id="responseTextArea"
+                class="UIInput"
+                style="width: 100%; height: 400px"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="col" style="margin-top: 20px">
+          <div id="wrapper2" style="width: 90%">
+            <div id="jsonOutput2" style="width: 100%">
+              <h5>翻譯Response</h5>
+              <textarea
+                id="responseTextArea2"
+                class="UIInput"
+                style="width: 100%; height: 400px"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row footer">
+      <div class="footer"></div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
